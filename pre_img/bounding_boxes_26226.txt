@@ -1,0 +1,8 @@
+./pre_img\Dilkush Malav\ActiOn_(59).png 134 582 1015 1719
+./pre_img\Dilkush Malav\ActiOn_(60).png 478 346 590 485
+./pre_img\Kamran\ActiOn_ (1).png 299 294 841 1032
+./pre_img\Kamran\ActiOn_ (2).png 288 224 863 957
+./pre_img\Kamran\ActiOn_ (3).png 500 301 959 1001
+./pre_img\Kamran\ActiOn_ (4).png 170 329 692 1025
+./pre_img\Kamran\ActiOn_ (5).png 258 270 821 983
+./pre_img\Kamran\ActiOn_ (6).png 360 267 878 951
