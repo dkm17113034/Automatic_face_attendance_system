@@ -27,7 +27,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import os
+import os 
 from subprocess import Popen, PIPE
 import tensorflow as tf
 from tensorflow.python.framework import ops
@@ -58,7 +58,7 @@ def triplet_loss(anchor, positive, negative, alpha):
         basic_loss = tf.add(tf.subtract(pos_dist,neg_dist), alpha)
         loss = tf.reduce_mean(tf.maximum(basic_loss, 0.0), 0)
       
-    return loss
+    return loss 
   
 def decov_loss(xs):
     """Decov loss as described in https://arxiv.org/pdf/1511.06068.pdf

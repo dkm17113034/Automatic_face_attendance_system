@@ -10,6 +10,9 @@ import detect_face
 import os
 import time
 import pickle
+import pandas as pd
+import csv 
+from datetime import datetime
 
 #input_video="v.mp4"
 modeldir = './model/20170511-185253.pb'
@@ -56,7 +59,7 @@ with tf.Graph().as_default():
         while True:
             ret, frame = video_capture.read()
 
-            frame = cv2.resize(frame, (0,0), fx=2.5, fy=1.8)    #resize frame (optional)
+            frame = cv2.resize(frame, (0,0), fx=1.1, fy=1.1)    #resize frame (optional)
 
             curTime = time.time()+1    # calc fps
             timeF = frame_interval
@@ -112,7 +115,8 @@ with tf.Graph().as_default():
                         # print(best_class_probabilities)
                         if best_class_probabilities>0.53:
                             cv2.rectangle(frame, (bb[i][0], bb[i][1]), (bb[i][2], bb[i][3]), (0, 255, 0), 2)    #boxing face
-
+                            lst1=[]
+                            lst2=[]
                             #plot result idx under box
                             text_x = bb[i][0]
                             text_y = bb[i][3] + 20
@@ -121,8 +125,13 @@ with tf.Graph().as_default():
                             for H_i in HumanNames:
                                 if HumanNames[best_class_indices[0]] == H_i:
                                     result_names = HumanNames[best_class_indices[0]]
+                                    lst1.append(pd.datetime.now().date())
+                                    lst2.append(result_names)
                                     cv2.putText(frame, result_names, (text_x, text_y), cv2.FONT_HERSHEY_COMPLEX_SMALL,
                                                 1, (0, 0, 255), thickness=1, lineType=2)
+                            
+                                         
+                                    
                 else:
                     print('Alignment Failure')
             # c+=1
@@ -133,3 +142,16 @@ with tf.Graph().as_default():
 
         video_capture.release()
         cv2.destroyAllWindows()
+final_list=[]
+for i in range(len(lst1)):
+    if lst2[i] not in final_list or lst1[i]!=lst1[i+1] :
+        final_list.append(lst2[i])
+now = datetime.now()
+timestamp = datetime.timestamp(now)
+date = pd.datetime.now().date()
+for result_names in final_list:
+    row =[result_names,timestamp,date]
+    with open('Attendance_list.csv','a') as csvFile:
+        writer=csv.writer(csvFile)
+        writer.writerow(row)
+    csvFile.close()
